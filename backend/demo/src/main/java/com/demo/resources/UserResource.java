@@ -1,8 +1,11 @@
 package com.demo.resources;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.demo.domain.User;
+import com.demo.dto.UserDTO;
 import com.demo.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +24,11 @@ public class UserResource {
     // @RequestMapping(method = RequestMethod.GET)
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll() {
+    public ResponseEntity<List<UserDTO>> findAll() {
 
         List<User> list = service.findAll();
+        List<UserDTO> listDto = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
 
-        return ResponseEntity.ok().body(list);
+        return ResponseEntity.ok().body(listDto);
     }
 }
