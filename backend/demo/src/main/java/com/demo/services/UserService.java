@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.demo.domain.User;
+import com.demo.dto.UserDTO;
 import com.demo.repository.UserRepository;
 import com.demo.services.exception.ObjectNotFoundException;
 
@@ -22,5 +23,13 @@ public class UserService {
     public User findById(String id) {
         Optional<User> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Object not exists"));
+    }
+
+    public User insert(User obj) {
+        return repo.insert(obj);
+    }
+
+    public User fromDTO(UserDTO objDto){
+        return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
     }
 }
