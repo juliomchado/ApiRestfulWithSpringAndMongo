@@ -1,5 +1,6 @@
 package com.demo.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.demo.domain.Post;
@@ -17,5 +18,9 @@ public class PostService {
     public Post findById(String id) {
         Optional<Post> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Object not exists"));
+    }
+
+    public List<Post> findByTitle(String text){
+        return repo.findByTitleContainingIgnoreCase(text);
     }
 }
